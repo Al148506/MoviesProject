@@ -1,0 +1,12 @@
+<form (submit)="saveChanges()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Genre Name</mat-label>
+      <input matInput [formControl] = "form.controls.name" placeholder="Enter genre name">
+      <mat-error>{{obtainErrorMessage('name')}}</mat-error>
+  </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save changes</button>
+      <button mat-stroked-button routerLink="/genres">Cancel</button>
+    </div>
+  </form>
+  

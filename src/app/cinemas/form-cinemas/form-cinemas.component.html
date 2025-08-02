@@ -1,0 +1,14 @@
+<form (submit)="saveChanges()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [formControl] = "form.controls.name" />
+        <mat-error>{{obtainErrorNameField()}}</mat-error>
+    </mat-form-field>
+    <h4>Select the cinema's location</h4>
+    <app-map (selectedCoordinate)="selectedCoordinate($event)"
+     [InitialCoordinates] = "InitialCoordinates"></app-map>
+    <div class="button-container">
+        <button type="submit" mat-flat-button [disabled]="form.invalid">Save changes</button>
+        <a mat-stroked-button routerLink="/cinemas">Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,49 @@
+button{
+    margin-bottom: 1rem;
+}
+
+/* Texto dentro del input
+.mat-mdc-form-field-input-control {
+  color: #f0f0f0 !important;
+} */
+
+:host {
+  color: #f0f0f0;
+}
+
+h2 {
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+mat-form-field, mat-label, mat-select, input, mat-option {
+  color: #f0f0f0 !important;
+  background-color: #2a2a2a;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #ffffff;
+  border-color: #888;
+}
+
+::ng-deep .mat-form-field-label {
+  color: #cccccc !important;
+}
+
+::ng-deep .mat-select-value-text {
+  color: #ffffff !important;
+}
+
+::ng-deep .mat-option {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+
+::ng-deep .mat-checkbox-label {
+  color: #ffffff;
+}
+
+.cdk-overlay-pane{
+      background-color: #2a2a2a;
+}

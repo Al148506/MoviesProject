@@ -1,0 +1,8 @@
+@for(item of maxRating; track $index){
+    <mat-icon 
+    (mouseover)="handleMouseEnter($index)"
+    (mouseleave) = "handleMouseLeave()"
+    (click)="handleClick($index)"
+    [ngClass]="{illuminated: currentRating > $index}">star</mat-icon>
+}
+
