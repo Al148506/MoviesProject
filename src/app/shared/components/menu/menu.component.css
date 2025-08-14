@@ -77,13 +77,18 @@ mat-toolbar.main-toolbar {
 }
 
 .nav-button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.5s;
 }
 
@@ -215,31 +220,49 @@ mat-toolbar.main-toolbar {
   padding: 16px 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
+  max-height: calc(100vh - 64px); /* Altura máxima para pantallas pequeñas */
+  overflow-y: auto; /* Permitir scroll si el contenido excede la altura */
 }
 
 .mobile-menu.active {
   display: block;
+  animation: slideDown 0.3s ease-out;
 }
-
+.mobile-menu app-authorized,
+.mobile-menu ng-container,
 .mobile-nav-links {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .mobile-nav-button {
-  padding: 12px 16px !important;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05) !important;
-  justify-content: flex-start !important;
-  width: 100%;
-  text-align: left;
+  padding: 14px 18px !important;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #d32f2f, #b71c1c) !important;
+  color: white !important;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+}
+
+.mobile-nav-button mat-icon {
+  font-size: 20px;
 }
 
 .mobile-nav-button:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: linear-gradient(135deg, #e53935, #c62828) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-menu .section-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 12px 0;
 }
 
 /* Responsive Design */
@@ -325,8 +348,19 @@ mat-toolbar.main-toolbar {
   }
 }
 
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .mobile-menu.active {
-  animation: slideDown 0.3s ease-out;
+  animation: slideFromRight 0.3s ease-out;
 }
 
 /* Focus styles for accessibility */

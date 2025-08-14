@@ -15,6 +15,7 @@ import { MatIconModule } from "@angular/material/icon";
   styleUrl: './form-authentication.component.css'
 })
 export class FormAuthenticationComponent {
+
   hidePassword = true;
   private formBuilder = inject(FormBuilder);
   form = this.formBuilder.group({
@@ -52,6 +53,7 @@ export class FormAuthenticationComponent {
       }
       return '';
     }
+    
 
     saveChanges(){
       if(!this.form.valid){

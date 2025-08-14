@@ -1,23 +1,23 @@
 @use "@angular/material" as mat;
 
-.primary{
-    @include mat.theme(
-        (
-            color: mat.$azure-palette
-        )
+.primary {
+  @include mat.theme(
+    (
+      color: mat.$azure-palette,
     )
+  );
 }
 
-.secondary{
-    @include mat.theme(
-        (
-            color: mat.$magenta-palette
-        )
+.secondary {
+  @include mat.theme(
+    (
+      color: mat.$magenta-palette,
     )
+  );
 }
 
 .dark-warn-button {
-  background-color: #8B0000;
+  background-color: #8b0000;
   color: white;
 
   &:hover {
@@ -60,7 +60,8 @@ mat-form-field {
   margin-right: 1rem;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -69,16 +70,22 @@ html, body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   color: #ffffff;
 }
-#buttons
-p, a,span, li {
-  color: darkgray;
+
+#buttons p,
+a,
+span,
+li {
+  color: white;
 }
 
-.mdc-button{
-  color: #8B0000 !important;
+.mdc-button {
+  color: #8b0000 !important;
 }
 
 .mdc-label {
@@ -87,8 +94,8 @@ p, a,span, li {
 
 .mat-mdc-paginator-outer-container {
   background-color: #2c2c2c;
-    border-radius: 15px !important;
-    overflow: hidden !important; 
+  border-radius: 15px !important;
+  overflow: hidden !important;
 }
 
 .mat-mdc-paginator {
@@ -103,7 +110,6 @@ p, a,span, li {
 .mat-mdc-icon-button,
 .mat-mdc-paginator-icon {
   color: whitesmoke !important;
-  
 }
 
 /* Dropdown y fondo del selector de páginas */
@@ -113,21 +119,18 @@ p, a,span, li {
 }
 //Inputs de Formulario
 .mat-mdc-option,
-.mat-mdc-text-field-wrapper
- {
+.mat-mdc-text-field-wrapper {
   background-color: #2c2c2c !important;
   color: pink !important;
 }
 
 //Boton Cancel
-.mdc-button--outlined{
-  background-color:#8B0000 !important;
+.mdc-button--outlined {
+  background-color: #8b0000 !important;
 }
 
 //Other buttons
-.button-container .mdc-button:first-child, 
-
- {
+.button-container .mdc-button:first-child {
   background-color: rgb(45, 20, 160) !important; /* Botón izquierdo */
 }
 
@@ -135,17 +138,12 @@ p, a,span, li {
   background-color: lightcoral; /* Botón derecho */
 }
 
-
 /* Flechas deshabilitadas más tenues */
 .mat-mdc-button-disabled .mat-mdc-paginator-icon {
   fill: pink;
 }
 // Aplica color claro al texto de los inputs
 input.mat-mdc-input-element,
-textarea.mat-mdc-input-element
-{
+textarea.mat-mdc-input-element {
   color: #f0f0f0 !important; // o #ffffff si deseas blanco puro
 }
-
-
-

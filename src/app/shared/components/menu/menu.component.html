@@ -37,7 +37,11 @@
     </app-authorized>
 
     <!-- Mobile Menu Toggle -->
-    <button mat-icon-button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+    <button
+      mat-icon-button
+      class="mobile-menu-toggle"
+      (click)="toggleMobileMenu()"
+    >
       <mat-icon>menu</mat-icon>
     </button>
 
@@ -49,9 +53,16 @@
             <div class="user-avatar">
               {{ getUserInitials() }}
             </div>
-            <span class="user-email">{{ securityService.obtainFieldJWT("email") }}</span>
+            <span class="user-email">{{
+              securityService.obtainFieldJWT("email")
+            }}</span>
           </div>
-          <a mat-button (click)="securityService.logout()" class="nav-button logout-btn">
+          <a
+            mat-button
+            routerLink="/"
+            (click)="securityService.logout()"
+            class="nav-button logout-btn"
+          >
             <mat-icon>logout</mat-icon>
             Logout
           </a>
@@ -71,30 +82,55 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div class="mobile-menu" [class.active]="isMobileMenuOpen">
+  <div class="mobile-menu section-divider" [class.active]="isMobileMenuOpen">
     <div class="mobile-nav-links">
-      <a mat-button routerLink="movies/filter" class="mobile-nav-button" (click)="closeMobileMenu()">
+      <a
+        mat-button
+        routerLink="movies/filter"
+        class="mobile-nav-button"
+        (click)="closeMobileMenu()"
+      >
         <mat-icon>search</mat-icon>
-        Buscar
+        Search
       </a>
-      
+
       <app-authorized rol="admin">
         <ng-container authorized>
-          <a mat-button routerLink="genres" class="mobile-nav-button" (click)="closeMobileMenu()">
+          <a
+            mat-button
+            routerLink="genres"
+            class="mobile-nav-button"
+            (click)="closeMobileMenu()"
+          >
             <mat-icon>category</mat-icon>
-            Géneros
+            Genres
           </a>
-          <a mat-button routerLink="actors" class="mobile-nav-button" (click)="closeMobileMenu()">
+          <a
+            mat-button
+            routerLink="actors"
+            class="mobile-nav-button"
+            (click)="closeMobileMenu()"
+          >
             <mat-icon>people</mat-icon>
-            Actores
+            Actors
           </a>
-          <a mat-button routerLink="cinemas" class="mobile-nav-button" (click)="closeMobileMenu()">
+          <a
+            mat-button
+            routerLink="cinemas"
+            class="mobile-nav-button"
+            (click)="closeMobileMenu()"
+          >
             <mat-icon>business</mat-icon>
-            Cines
+            Cinemas
           </a>
-          <a mat-button routerLink="users" class="mobile-nav-button" (click)="closeMobileMenu()">
+          <a
+            mat-button
+            routerLink="users"
+            class="mobile-nav-button"
+            (click)="closeMobileMenu()"
+          >
             <mat-icon>admin_panel_settings</mat-icon>
-            Usuarios
+            Users
           </a>
         </ng-container>
       </app-authorized>

@@ -8,23 +8,29 @@ import { environment } from '../../environments/environment';
 import { constructQueryParams } from '../shared/functions/constructQueryParams';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CinemasService implements IServiceCRUD<CinemaDTO,CinemaCreationDTO>{
-
-  constructor() { }
+export class CinemasService
+  implements IServiceCRUD<CinemaDTO, CinemaCreationDTO>
+{
+  constructor() {}
 
   private http = inject(HttpClient);
-  private urlBase = environment.apiURL + '/cinema';
-  obtainPagination(pagination: PaginationDTO): Observable<HttpResponse<CinemaDTO[]>> {
+  private urlBase = environment.apiURL + '/cinemas';
+  obtainPagination(
+    pagination: PaginationDTO
+  ): Observable<HttpResponse<CinemaDTO[]>> {
     let queryParams = constructQueryParams(pagination);
-    return this.http.get<CinemaDTO[]>(this.urlBase, {params: queryParams, observe: 'response'});
+    return this.http.get<CinemaDTO[]>(this.urlBase, {
+      params: queryParams,
+      observe: 'response',
+    });
   }
   getById(id: number): Observable<CinemaDTO> {
     return this.http.get<CinemaDTO>(`${this.urlBase}/${id}`);
   }
   create(entity: CinemaCreationDTO): Observable<any> {
-     return this.http.post(this.urlBase, entity);
+    return this.http.post(this.urlBase, entity);
   }
   update(id: number, entity: CinemaCreationDTO): Observable<any> {
     return this.http.put(`${this.urlBase}/${id}`, entity);
