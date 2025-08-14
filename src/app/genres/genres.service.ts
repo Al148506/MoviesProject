@@ -10,9 +10,9 @@ import { IServiceCRUD } from '../shared/interfaces/IServiceCRUD';
 @Injectable({
   providedIn: 'root',
 })
-export class GenresService implements IServiceCRUD<GenreDTO,GenreCreateDTO> {
+export class GenresService implements IServiceCRUD<GenreDTO, GenreCreateDTO> {
   private http = inject(HttpClient);
-  private urlBase = environment.apiURL + '/GenreSQL';
+  private urlBase = environment.apiURL + '/Genres';
   constructor() {}
 
   public obtainPagination(
@@ -24,24 +24,23 @@ export class GenresService implements IServiceCRUD<GenreDTO,GenreCreateDTO> {
       observe: 'response',
     });
   }
-  public obtainAll():Observable<GenreDTO[]>{
-    return this.http.get<GenreDTO[]>(`${this.urlBase}/all`)
+  public obtainAll(): Observable<GenreDTO[]> {
+    return this.http.get<GenreDTO[]>(`${this.urlBase}/all`);
   }
 
   public getById(id: number): Observable<GenreDTO> {
     return this.http.get<GenreDTO>(`${this.urlBase}/${id}`);
   }
 
-  public create(genre: GenreCreateDTO) : Observable<any> {
+  public create(genre: GenreCreateDTO): Observable<any> {
     return this.http.post(this.urlBase, genre);
   }
 
-  public update(id: number, genre: GenreCreateDTO) : Observable<any> {
+  public update(id: number, genre: GenreCreateDTO): Observable<any> {
     return this.http.put(`${this.urlBase}/${id}`, genre);
   }
 
-  public delete(id: number) : Observable<any> {
+  public delete(id: number): Observable<any> {
     return this.http.delete(`${this.urlBase}/${id}`);
   }
 }
-

@@ -81,6 +81,33 @@
         </button>
       </div>
 
+      <!-- Demo Credentials Panel -->
+<div class="demo-credentials" role="note" aria-label="Demo credentials">
+  <div class="demo-header">
+    <span class="demo-badge">Demo Credentials</span>
+    <button
+      type="button"
+      mat-stroked-button
+      class="demo-fill-btn"
+      (click)="form.patchValue({ email: 'demo@yourapplication.com', password: 'Demo@1234' })"
+    >
+      <mat-icon class="demo-fill-icon">login</mat-icon>
+      Fill & Sign In
+    </button>
+  </div>
+
+  <div class="demo-row">
+    <span class="demo-label">Email</span>
+    <code class="demo-code">demo&#64;yourapplication.com</code>
+  </div>
+
+  <div class="demo-row">
+    <span class="demo-label">Password</span>
+    <code class="demo-code">Demo&#64;1234</code>
+  </div>
+</div>
+
+
       <!-- Additional Links -->
     </form>
   </div>

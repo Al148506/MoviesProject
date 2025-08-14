@@ -253,6 +253,103 @@
   color: #ffffff;
   text-decoration: underline;
 }
+/* Demo Credentials Panel */
+.demo-credentials {
+  margin-top: 1rem;
+  background: rgba(40, 40, 65, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 1rem 1rem 0.75rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.demo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.demo-badge {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #ffffff;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  box-shadow: 0 6px 18px rgba(78, 205, 196, 0.35);
+}
+
+.demo-fill-btn {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-radius: 999px !important;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.demo-fill-btn:hover {
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+.demo-fill-icon {
+  font-size: 18px;
+}
+
+.demo-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.demo-label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+}
+
+.demo-code {
+  color: #e9f7f6;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  background: rgba(78, 205, 196, 0.1);
+  border: 1px solid rgba(78, 205, 196, 0.25);
+  word-break: break-all;
+}
+
+.demo-copy {
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.demo-copy:hover {
+  color: #4ecdc4 !important;
+  transform: scale(1.05);
+}
+
+/* Responsive tweak */
+@media (max-width: 480px) {
+  .demo-row {
+    grid-template-columns: 1fr auto;
+  }
+  .demo-label {
+    display: none;
+  }
+}
+
 
 
 @keyframes float {
