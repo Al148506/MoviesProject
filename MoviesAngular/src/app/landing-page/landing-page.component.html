@@ -1,0 +1,42 @@
+<div class="landing-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Movie Theater</h1>
+      <p class="hero-subtitle">Discover the latest movies and upcoming releases</p>
+    </div>
+    <div class="hero-overlay"></div>
+  </section>
+
+  <!-- Now Playing Section -->
+  <section class="movies-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="title-icon">🎬</span>
+        Now Playing
+      </h2>
+      <div class="title-underline"></div>
+    </div>
+
+    <app-list-movies
+      [movies]="moviesInCinemas"
+      (deleted)="movieDeleted()"
+    ></app-list-movies>
+  </section>
+
+  <!-- Coming Soon Section -->
+  <section class="movies-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="title-icon">🎭</span>
+        Coming Soon
+      </h2>
+      <div class="title-underline"></div>
+    </div>
+
+    <app-list-movies
+      [movies]="moviesComingSoon"
+      (deleted)="movieDeleted()"
+    ></app-list-movies>
+  </section>
+</div>

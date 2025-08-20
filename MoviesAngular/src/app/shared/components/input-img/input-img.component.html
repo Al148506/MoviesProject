@@ -1,0 +1,12 @@
+<h4>{{title}}</h4>
+<div>
+    <button type="button" mat-raised-button (click)="chargeArchive.click()">Select image</button>
+    <input type="file" hidden #chargeArchive accept="image/*" (change) = "change($event)"/>
+</div>
+<div>
+    @if(imageBase64){
+        <img [src]="imageBase64" width="169" height="250"/>
+    } @else if (urlCurrentImage) {
+        <img [src]="urlCurrentImage" width="169" height="250"/>
+    }
+</div>

@@ -1,0 +1,106 @@
+/* Contenedor del formulario */
+form {
+  background-color: #1e1e1e;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Campos de entrada */
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+/* Texto dentro del input */
+.mat-mdc-form-field-input-control {
+  color: #f0f0f0 !important;
+}
+
+/* Placeholder */
+::placeholder {
+  color: #bbbbbb !important;
+  opacity: 1;
+}
+
+/* Label flotante */
+.mat-mdc-floating-label {
+  color: #cccccc !important;
+}
+
+/* Bordes */
+.mat-mdc-form-field-outline {
+  border-color: #444 !important;
+}
+
+.mat-mdc-form-field-outline-thick {
+  border-color: #666 !important;
+}
+
+/* Errores */
+.mat-mdc-form-field-error {
+  color: #ff6b6b !important;
+}
+
+/* Datepicker */
+.mat-mdc-icon-button {
+  color: #f0f0f0 !important;
+}
+
+.mat-datepicker-content,
+.mat-mdc-dialog-surface {
+  background-color: #2c2c2c !important;
+  color: #f0f0f0 !important;
+}
+
+/* Títulos secundarios */
+form h4 {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.3rem;
+}
+
+/* Botonera */
+.button-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Botón de guardar */
+button[mat-flat-button] {
+  background-color: #e91e63;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.2s ease-in-out;
+}
+
+button[mat-flat-button]:hover {
+  background-color: #c2185b;
+}
+
+/* Botón de cancelar */
+a[mat-stroked-button] {
+  border-color: #e91e63;
+  color: #e91e63;
+  padding: 0.6rem 1.5rem;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+a[mat-stroked-button]:hover {
+  background-color: rgba(233, 30, 99, 0.1);
+}
+
+.mdc-button{
+   border-color: #e91e63;
+  color: #e91e63;
+}
