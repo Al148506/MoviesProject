@@ -20,84 +20,101 @@ jobs:
   test-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Backend (.NET) - opcionalmente testea si tienes tests
-      - uses: actions/setup-dotnet@v4
-        with: { dotnet-version: '8.0.x' }
+      # ----- Backend (.NET) -----
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # Compila directamente el .csproj (evitamos la .sln con referencia rota a tests)
       - name: Restore & Build backend
-        working-directory: MoviesAPI
         run: |
-          dotnet restore
-          dotnet build --configuration Release --no-restore
-          # dotnet test --configuration Release --no-build
+          dotnet restore MoviesAPI/MoviesAPI.csproj
+          dotnet build MoviesAPI/MoviesAPI.csproj --configuration Release --no-restore
 
-      # Frontend (Angular) - build para validar que compila
-      - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+      # ----- Frontend (Angular) -----
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install & Build frontend
         working-directory: MoviesAngular
         run: |
           npm ci
           npm run build
-      - name: Archive Angular dist (para despliegue)
+
+      # Guardamos el dist para usarlo en el deploy
+      - name: Archive Angular dist
         uses: actions/upload-artifact@v4
         with:
           name: dist-angular
-          path: MoviesAngular/dist
+          path: MoviesAngular/dist/MoviesAngular/browser
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [test-build]
+    needs: [ test-build ]
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Carga la clave SSH para conectar al servidor
       - name: Add SSH key
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # Descarga el artefacto (dist) generado en el job previo
       - name: Download Angular dist
         uses: actions/download-artifact@v4
         with:
           name: dist-angular
           path: dist-angular
 
-      # Despliegue remoto por SSH
-      - name: Deploy over SSH
+      # Prepara el workspace remoto (actualiza repo, crea red y carpeta dist si no existe)
+      - name: Prepare remote workspace
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
+          : "${SSH_PORT:=22}"
           ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" bash << 'EOF'
           set -e
           cd /srv/movies
-          # Asegura el repo al último commit de main
+          # Repo al último commit de main
           git fetch --all
           git reset --hard origin/main
-
-          # Copiamos el dist que trae la acción (lo recibiremos por scp abajo)
-          rm -rf MoviesAngular/dist
-          mkdir -p MoviesAngular/dist/MoviesAngular/browser
-
-          # Asegura la red
+          # Red docker si no existe
           docker network inspect appnet >/dev/null 2>&1 || docker network create appnet
-
-          # Levanta/actualiza contenedores (backend se re-build con el nuevo código)
-          docker compose up -d --build
+          # Carpeta de artefactos Angular para nginx
+          mkdir -p /srv/movies/MoviesAngular/dist/MoviesAngular/browser
           EOF
 
-      # Sube el dist por SCP al servidor (para nginx)
+      # Sube los archivos estáticos de Angular al servidor (nginx los sirve por bind mount)
       - name: Upload Angular dist via SCP
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          # Copiamos SOLO el contenido del dist al path que sirve nginx en el servidor
-          scp -o StrictHostKeyChecking=no -P "$SSH_PORT" -r dist-angular/MoviesAngular/browser/* \
+          : "${SSH_PORT:=22}"
+          scp -o StrictHostKeyChecking=no -P "$SSH_PORT" -r \
+            dist-angular/MoviesAngular/browser/* \
             "$SSH_USER@$SSH_HOST:/srv/movies/MoviesAngular/dist/MoviesAngular/browser/"
+
+      # Reconstruye/actualiza contenedores (backend se re-build con el nuevo código)
+      - name: Compose up (backend/nginx)
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          : "${SSH_PORT:=22}"
+          ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" bash << 'EOF'
+          set -e
+          cd /srv/movies
+          docker compose up -d --build
+          EOF
