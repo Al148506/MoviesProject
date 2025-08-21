@@ -73,7 +73,10 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          : "${SSH_PORT:=22}"
+          echo "Testing $SSH_HOST:$SSH_PORT"
+          getent hosts "$SSH_HOST" || true
+          sudo apt-get update && sudo apt-get install -y netcat-openbsd
+          nc -vz -w 5 "$SSH_HOST" "$SSH_PORT"
           ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "echo connected"
 
       - name: Download Angular dist
