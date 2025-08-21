@@ -47,7 +47,7 @@ jobs:
           npm ci --legacy-peer-deps
           npm run build
 
-      # Guardamos el dist para usarlo en el deploy
+      # Guardamos el dist para poder usarlo en el deploy
       - name: Archive Angular dist
         uses: actions/upload-artifact@v4
         with:
