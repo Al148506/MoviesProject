@@ -44,7 +44,7 @@ jobs:
       - name: Install & Build frontend
         working-directory: MoviesAngular
         run: |
-          npm ci
+          npm ci --legacy-peer-deps
           npm run build
 
       # Guardamos el dist para usarlo en el deploy
