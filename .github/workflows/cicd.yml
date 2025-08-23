@@ -56,77 +56,67 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [ test-build ]
+    needs: [test-build]
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
+  
+      # Carga la clave para SSH
       - name: Add SSH key
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-      - name: Test SSH
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-        run: |
-          echo "Testing $SSH_HOST:$SSH_PORT"
-          getent hosts "$SSH_HOST" || true
-          sudo apt-get update && sudo apt-get install -y netcat-openbsd
-          nc -vz -w 5 "$SSH_HOST" "$SSH_PORT"
-          ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "echo connected"
-
+  
+      # Descarga el artefacto EXACTAMENTE del subpath del browser
       - name: Download Angular dist
         uses: actions/download-artifact@v4
         with:
           name: dist-angular
           path: dist-angular
-
-      # Prepara el workspace remoto (actualiza repo, crea red y carpeta dist si no existe)
+  
+      # (Debug opcional) Ver qué descargó realmente
+      - name: List downloaded dist
+        run: |
+          echo "Tree of dist-angular:"
+          ls -R dist-angular || true
+  
+      # Asegura que el directorio remoto exista y sea tuyo
       - name: Prepare remote workspace
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          : "${SSH_PORT:=22}"
-          ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" bash << 'EOF'
-          set -e
-          cd /srv/movies
-          # Repo al último commit de main
-          git fetch --all
-          git reset --hard origin/main
-          # Red docker si no existe
-          docker network inspect appnet >/dev/null 2>&1 || docker network create appnet
-          # Carpeta de artefactos Angular para nginx
-          mkdir -p /srv/movies/MoviesAngular/dist/MoviesAngular/browser
-          EOF
-
-      # Sube los archivos estáticos de Angular al servidor (nginx los sirve por bind mount)
+          ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            "mkdir -p /srv/movies/MoviesAngular/dist/MoviesAngular/browser && \
+             sudo chown -R $SSH_USER:$SSH_USER /srv/movies/MoviesAngular/dist"
+  
+      # Copia el contenido del browser al server
+      # OJO: observa el path de origen, ahora apunta al subcarpeta correcta
       - name: Upload Angular dist via SCP
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          : "${SSH_PORT:=22}"
+          # Si subiste el artefacto como 'MoviesAngular/dist', el contenido real estará en:
+          # dist-angular/MoviesAngular/dist/MoviesAngular/browser
           scp -o StrictHostKeyChecking=no -P "$SSH_PORT" -r \
-            dist-angular/MoviesAngular/browser/* \
+            dist-angular/MoviesAngular/dist/MoviesAngular/browser/* \
             "$SSH_USER@$SSH_HOST:/srv/movies/MoviesAngular/dist/MoviesAngular/browser/"
-
-      # Reconstruye/actualiza contenedores (backend se re-build con el nuevo código)
+  
+      # Actualiza código backend y recrea contenedores
       - name: Compose up (backend/nginx)
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          : "${SSH_PORT:=22}"
           ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" bash << 'EOF'
           set -e
           cd /srv/movies
+          git fetch --all
+          git reset --hard origin/main
+          docker network inspect appnet >/dev/null 2>&1 || docker network create appnet
           docker compose up -d --build
           EOF
