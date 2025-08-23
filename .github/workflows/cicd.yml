@@ -77,7 +77,7 @@ jobs:
           nc -vz -w 5 "$SSH_HOST" "$SSH_PORT"
           ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "echo connected"
       - name: Download Angular dist
-      - uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4
         with:
           name: dist-browser
           path: dist-browser
@@ -108,10 +108,16 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          : "${SSH_PORT:=22}"
-          scp -o StrictHostKeyChecking=no -P "$SSH_PORT" -r \
-          dist-browser/* \
-          "$SSH_USER@$SSH_HOST:/srv/movies/MoviesAngular/dist/MoviesAngular/browser/"
+         : "${SSH_PORT:=22}"
+         shopt -s nullglob
+            files=(dist-browser/*)
+            if [ ${#files[@]} -eq 0 ]; then
+              echo "dist-browser está vacío; nada que copiar"
+            else
+              scp -o StrictHostKeyChecking=no -P "$SSH_PORT" -r \
+                dist-browser/* \
+                "$SSH_USER@$SSH_HOST:/srv/movies/MoviesAngular/dist/MoviesAngular/browser/"
+            fi
       # Reconstruye/actualiza contenedores (backend se re-build con el nuevo código)
       - name: Compose up (backend/nginx)
         env:
