@@ -16,6 +16,10 @@
     <app-authorized rol="admin">
       <ng-container authorized>
         <div class="admin-links">
+          <a mat-button routerLink="movies/create" class="nav-button">
+            <mat-icon>movie</mat-icon>
+            Add Movie
+          </a>
           <a mat-button routerLink="genres" class="nav-button">
             <mat-icon>category</mat-icon>
             Genres
@@ -96,6 +100,15 @@
 
       <app-authorized rol="admin">
         <ng-container authorized>
+          <a
+            mat-button
+            routerLink="movies/create"
+            class="mobile-nav-button"
+            (click)="closeMobileMenu()"
+          >
+            <mat-icon>movie</mat-icon>
+            Add Movie
+          </a>
           <a
             mat-button
             routerLink="genres"
