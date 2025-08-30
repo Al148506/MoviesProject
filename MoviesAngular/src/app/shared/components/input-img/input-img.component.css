@@ -1,3 +1,5 @@
-button{
-    margin-bottom: 1rem;
+button {
+  margin-bottom: 1rem;
+  color: #000 !important;
+  background-color: grey !important;
 }

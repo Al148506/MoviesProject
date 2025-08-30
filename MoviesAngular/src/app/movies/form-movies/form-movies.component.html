@@ -1,53 +1,101 @@
-<form (submit)="saveChanges()" [formGroup]="form">
-  <mat-form-field appearance="outline">
-    <mat-label>Title</mat-label>
-    <input matInput [formControl]="form.controls.title" />
-    <mat-error>{{ obtainErrorFieldTitle() }}</mat-error>
-  </mat-form-field>
+<mat-card class="form-card">
+  <mat-card-header>
+    <mat-card-title>Create / Edit Movie</mat-card-title>
+    <mat-card-subtitle>Fill the details below</mat-card-subtitle>
+  </mat-card-header>
 
-  <mat-form-field appearance="outline">
-    <input
-      matInput
-      [matDatepicker]="picker"
-      [formControl]="form.controls.releaseDate"
-      placeholder="Choose a date"
-    />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-    <mat-error>{{ obtainErrorFieldReleaseDate() }}</mat-error>
-  </mat-form-field>
+  <mat-divider></mat-divider>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Trailer</mat-label>
-    <input matInput [formControl]="form.controls.trailer" />
-  </mat-form-field>
+  <mat-card-content>
+    <form (submit)="saveChanges()" [formGroup]="form" class="form-grid">
+      <!-- Columna 1 / 2: Title -->
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          [formControl]="form.controls.title"
+          aria-describedby="title-hint"
+          required
+        />
+        <mat-hint id="title-hint">Example: “Inception”</mat-hint>
+        <mat-error>{{ obtainErrorFieldTitle() }}</mat-error>
+      </mat-form-field>
 
-  <app-input-img
-    title="Poster of the Movie"
-    [urlCurrentImage]="model?.poster"
-    (selectedArchive)="selectedArchive($event)"
-  ></app-input-img>
+      <!-- Columna 2 / 2: Release date -->
+      <mat-form-field appearance="outline">
+        <mat-label>Release date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [formControl]="form.controls.releaseDate"
+          placeholder="Choose a date"
+          aria-describedby="date-hint"
+          required
+        />
+        <mat-hint id="date-hint">MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>{{ obtainErrorFieldReleaseDate() }}</mat-error>
+      </mat-form-field>
 
-  <h4>Select the Genres</h4>
-  <app-multiple-selector
-    [Selected]="genreSelected"
-    [NotSelected]="genreNotSelected"
-  ></app-multiple-selector>
+      <!-- Trailer (full width) -->
+      <mat-form-field appearance="outline" class="full-row">
+        <mat-label>Trailer URL</mat-label>
+        <input
+          matInput
+          [formControl]="form.controls.trailer"
+          placeholder="https://youtu.be/..."
+        />
+        <mat-hint align="start">YouTube/Vimeo link</mat-hint>
+      </mat-form-field>
 
-  <h4>Select the Cinemas</h4>
-  <app-multiple-selector
-    [Selected]="cinemasSelected"
-    [NotSelected]="cinemasNotSelected"
-  ></app-multiple-selector>
+      <!-- Poster -->
+      <section class="full-row section">
+        <h4 class="section-title">Poster</h4>
+        <app-input-img
+          title="Poster of the Movie"
+          [urlCurrentImage]="model?.poster"
+          (selectedArchive)="selectedArchive($event)"
+        ></app-input-img>
+      </section>
 
-  <h4>Select the Actors</h4>
-  <app-autocomplete-actors [actorsSelected]="actorsSelected">
-  </app-autocomplete-actors>
+      <!-- Géneros -->
+      <section class="full-row section">
+        <h4 class="section-title">Select the Genres</h4>
+        <app-multiple-selector
+          [Selected]="genreSelected"
+          [NotSelected]="genreNotSelected"
+        ></app-multiple-selector>
+      </section>
 
-  <div class="button-container">
-    <button type="submit" mat-flat-button [disabled]="form.invalid">
-      Save Changes
-    </button>
-    <a mat-stroked-button routerLink="/movies">Cancel</a>
-  </div>
-</form>
+      <!-- Cines -->
+      <section class="full-row section">
+        <h4 class="section-title">Select the Cinemas</h4>
+        <app-multiple-selector
+          [Selected]="cinemasSelected"
+          [NotSelected]="cinemasNotSelected"
+        ></app-multiple-selector>
+      </section>
+
+      <!-- Actores -->
+      <section class="full-row section">
+        <h4 class="section-title">Select the Actors</h4>
+        <app-autocomplete-actors [actorsSelected]="actorsSelected">
+        </app-autocomplete-actors>
+      </section>
+
+      <!-- Botonera -->
+      <div class="button-bar">
+        <button
+          type="submit"
+          mat-flat-button
+          color="primary"
+          [disabled]="form.invalid"
+        >
+          Save Changes
+        </button>
+        <a mat-stroked-button routerLink="/movies">Cancel</a>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
