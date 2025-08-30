@@ -79,9 +79,8 @@ h4 {
 
 #buttons p,
 a,
-span,
-li {
-  color: white;
+span {
+  color: #ffffff;
 }
 
 .mdc-button {
@@ -146,4 +145,24 @@ li {
 input.mat-mdc-input-element,
 textarea.mat-mdc-input-element {
   color: #f0f0f0 !important; // o #ffffff si deseas blanco puro
+}
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:root {
+  @include mat.datepicker-overrides(
+    (
+      calendar-container-background-color: #0b0f16,
+      calendar-container-elevation-shadow: 8,
+      calendar-container-shape: 16px,
+      calendar-body-label-text-color: white,
+      calendar-container-text-color: white,
+      calendar-date-text-color: white,
+      /* states */ calendar-date-hover-state-background-color:
+        rgba(56, 189, 248, 0.16),
+      calendar-date-focus-state-background-color: rgba(56, 189, 248, 0.24),
+      calendar-date-selected-state-background-color: #38bdf8,
+      calendar-date-selected-state-text-color: #06121f,
+      calendar-date-today-outline-color: #93c5fd,
+    )
+  );
 }

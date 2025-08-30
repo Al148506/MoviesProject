@@ -29,6 +29,8 @@ import { MultipleSelectorComponent } from '../../shared/components/multiple-sele
 import { SelectorMultipleDTO } from '../../shared/components/multiple-selector/multiple-selector-model';
 import { AutocompleteActorsComponent } from '../../actors/autocomplete-actors/autocomplete-actors.component';
 import { ActorAutoCompleteDTO } from '../../actors/actors';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-form-movies',
@@ -43,9 +45,11 @@ import { ActorAutoCompleteDTO } from '../../actors/actors';
     MatDatepickerToggle,
     MatDatepickerModule,
     InputImgComponent,
+    MatCardModule,
+    MatDividerModule,
     MultipleSelectorComponent,
-    AutocompleteActorsComponent,
-  ],
+    AutocompleteActorsComponent
+],
   templateUrl: './form-movies.component.html',
   styleUrl: './form-movies.component.css',
 })

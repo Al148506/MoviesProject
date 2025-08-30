@@ -1,8 +1,9 @@
 /* General Layout */
-body, .landing-container {
+body,
+.landing-container {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   color: #ffffff;
 }
 
@@ -13,7 +14,7 @@ body, .landing-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('/assets/hero-background.jpg') center/cover no-repeat;
+  background: url("/assets/hero-background.jpg") center/cover no-repeat;
   color: #ffffff;
   overflow: hidden;
 }
@@ -72,4 +73,144 @@ body, .landing-container {
   background-color: #ff4081;
   margin: 10px auto 0;
   border-radius: 2px;
+}
+
+/* ===== Design tokens (no background changes) ===== */
+:host {
+  --radius: 16px;
+  --shadow-1: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --text-1: #fff;
+  --text-2: rgba(255, 255, 255, 0.72);
+  --accent-1: #4ecdc4;
+  --accent-2: #44a08d;
+}
+
+/* ===== Typography & spacing ===== */
+.hero-section {
+  min-height: clamp(440px, 70vh, 760px);
+}
+
+.hero-content {
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+.hero-title {
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+  margin-bottom: 0.35rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  color: var(--text-2);
+  max-width: 60ch;
+  margin-inline: auto;
+}
+
+/* Section spacing stays on your dark bg color */
+.movies-section {
+  padding: clamp(32px, 5vw, 64px) clamp(16px, 4vw, 48px);
+  background-color: #1e1e1e; /* unchanged */
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.section-header {
+  margin-bottom: clamp(18px, 3vw, 28px);
+}
+.section-title {
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  color: var(--text-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.title-icon {
+  font-size: 1.25em;
+}
+.title-underline {
+  width: 88px;
+  height: 3px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+}
+
+/* ===== Buttons (primary + subtle outline) ===== */
+.hero-actions {
+  margin-top: clamp(16px, 3vw, 28px);
+  display: inline-flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  -webkit-tap-highlight-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-primary {
+  color: #0d1b1b;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  box-shadow: var(--shadow-1);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  color: var(--text-1);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.btn-outline:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(78, 205, 196, 0.55);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+
+/* ===== Card polish (use in your movie cards if class is available) ===== */
+/* If your <app-list-movies> exposes a .movie-card class, this will style it. */
+/* Remove the ::ng-deep line if you already control the card class here. */
+:host ::ng-deep .movie-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+:host ::ng-deep .movie-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Optional utility: clamp poster heights inside cards */
+:host ::ng-deep .movie-card img {
+  object-fit: cover;
+}
+
+/* ===== Small refinements ===== */
+.title-icon {
+  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.35));
 }

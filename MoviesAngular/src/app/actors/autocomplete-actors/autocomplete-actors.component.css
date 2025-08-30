@@ -13,3 +13,11 @@ table {
   width: 100%;
   margin-bottom: 1rem;
 }
+
+.mat-mdc-table {
+  background-color: #3b3b3b;
+}
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  color: #ffffff !important; /* blanco, o el color que prefieras */
+}

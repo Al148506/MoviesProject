@@ -7,7 +7,7 @@
   padding: 2rem;
   position: relative;
   overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Background Overlay */
@@ -58,8 +58,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .login-title {
@@ -83,6 +88,8 @@
 /* Error Container */
 .error-container {
   margin-bottom: 1.5rem;
+  color: #ff4d4d !important;
+  font-weight: 500;
 }
 
 /* Form Styles */
@@ -156,7 +163,7 @@
 }
 
 .custom-error::before {
-  content: '⚠️';
+  content: "⚠️";
   font-size: 0.8rem;
 }
 
@@ -233,8 +240,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Login Footer */
@@ -321,7 +332,8 @@
 
 .demo-code {
   color: #e9f7f6;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
   font-size: 0.95rem;
   padding: 0.25rem 0.5rem;
   border-radius: 8px;
@@ -350,10 +362,9 @@
   }
 }
 
-
-
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
     opacity: 0.5;
   }
@@ -368,17 +379,17 @@
   .login-container {
     padding: 1rem;
   }
-  
+
   .login-card {
     padding: 2rem;
     max-width: 100%;
     margin: 0 1rem;
   }
-  
+
   .login-title {
     font-size: 1.5rem;
   }
-  
+
   .login-icon {
     font-size: 2.5rem;
   }
@@ -389,15 +400,15 @@
     padding: 1.5rem;
     border-radius: 20px;
   }
-  
+
   .login-title {
     font-size: 1.3rem;
   }
-  
+
   .login-subtitle {
     font-size: 0.9rem;
   }
-  
+
   .field-container {
     margin-bottom: 1rem;
   }

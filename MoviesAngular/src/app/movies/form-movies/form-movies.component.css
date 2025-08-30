@@ -1,106 +1,137 @@
-/* Contenedor del formulario */
-form {
-  background-color: #1e1e1e;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  max-width: 800px;
-  margin: auto;
+/* ---------- Card base ---------- */
+.form-card {
+  --bg: #1e1e1e;
+  --fg: #f0f0f0;
+  --muted: #bbbbbb;
+  --border: #2a2a2a;
+  --accent: #e91e63;
+  --accent-700: #c2185b;
+
+  background: var(--bg);
+  color: var(--fg);
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
 }
 
-/* Campos de entrada */
+/* ---------- Grid del formulario ---------- */
+.form-grid {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.full-row {
+  grid-column: 1 / -1;
+}
+
+/* ---------- Títulos de sección ---------- */
+.section {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  background: #222;
+}
+
+.section-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.4rem;
+}
+
+/* ---------- Angular Material tweaks ---------- */
 .mat-mdc-form-field {
   width: 100%;
-  margin-bottom: 1.5rem;
 }
 
-/* Texto dentro del input */
 .mat-mdc-form-field-input-control {
-  color: #f0f0f0 !important;
+  color: var(--fg) !important;
 }
 
-/* Placeholder */
 ::placeholder {
-  color: #bbbbbb !important;
+  color: var(--muted) !important;
   opacity: 1;
 }
 
-/* Label flotante */
-.mat-mdc-floating-label {
-  color: #cccccc !important;
-}
-
-/* Bordes */
-.mat-mdc-form-field-outline {
+.mdc-notched-outline__leading,
+.mdc-notched-outline__notch,
+.mdc-notched-outline__trailing {
   border-color: #444 !important;
 }
 
-.mat-mdc-form-field-outline-thick {
-  border-color: #666 !important;
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--accent) !important;
 }
 
-/* Errores */
 .mat-mdc-form-field-error {
   color: #ff6b6b !important;
 }
 
-/* Datepicker */
-.mat-mdc-icon-button {
-  color: #f0f0f0 !important;
-}
-
+/* Datepicker surface */
 .mat-datepicker-content,
 .mat-mdc-dialog-surface {
   background-color: #2c2c2c !important;
-  color: #f0f0f0 !important;
+  color: var(--fg) !important;
 }
 
-/* Títulos secundarios */
-form h4 {
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-  color: #ffffff;
-  border-bottom: 1px solid #333;
-  padding-bottom: 0.3rem;
-}
+/* ---------- Botonera sticky ---------- */
+.button-bar {
+  grid-column: 1 / -1;
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 30, 30, 0) 0%,
+    rgba(30, 30, 30, 1) 24%
+  );
+  padding-top: 0.25rem;
+  margin-top: 0.5rem;
 
-/* Botonera */
-.button-container {
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
+  align-items: center;
 }
 
-/* Botón de guardar */
 button[mat-flat-button] {
-  background-color: #e91e63;
-  color: #ffffff;
-  font-weight: bold;
-  padding: 0.6rem 1.5rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  transition: background-color 0.2s ease-in-out;
+  background-color: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.6rem 1.4rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  transition: transform 120ms ease, background-color 120ms ease;
 }
 
-button[mat-flat-button]:hover {
-  background-color: #c2185b;
+button[mat-flat-button]:hover,
+button[mat-flat-button]:focus-visible {
+  background-color: var(--accent-700);
+  transform: translateY(-1px);
+  outline: none;
 }
 
-/* Botón de cancelar */
 a[mat-stroked-button] {
-  border-color: #e91e63;
-  color: #e91e63;
-  padding: 0.6rem 1.5rem;
-  font-weight: bold;
-  border-radius: 6px;
-  transition: all 0.2s ease-in-out;
+  border-color: var(--accent);
+  color: var(--accent);
+  padding: 0.6rem 1.4rem;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: background-color 120ms ease, transform 120ms ease;
 }
 
-a[mat-stroked-button]:hover {
-  background-color: rgba(233, 30, 99, 0.1);
-}
-
-.mdc-button{
-   border-color: #e91e63;
-  color: #e91e63;
+a[mat-stroked-button]:hover,
+a[mat-stroked-button]:focus-visible {
+  background-color: rgba(233, 30, 99, 0.12);
+  transform: translateY(-1px);
+  outline: none;
 }

@@ -36,7 +36,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Repositories & Services
 builder.Services.AddSingleton<IRepository, RepositorySqlServer>();
 builder.Services.AddSingleton<GeometryFactory>(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));
-builder.Services.AddTransient<IStorageFiles, StorageArchivesAzurite>();
+builder.Services.AddTransient<IStorageFiles, StorageArchivesAzure>();
 builder.Services.AddTransient<IUserServices, UserServices>();
 
 builder.Services.AddHttpContextAccessor();
