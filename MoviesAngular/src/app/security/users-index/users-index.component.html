@@ -16,7 +16,6 @@
       <ng-container content>
         <div class="table-wrapper">
           <table mat-table [dataSource]="users" class="custom-users-table">
-            
             <!-- Email Column -->
             <ng-container matColumnDef="email">
               <th mat-header-cell *matHeaderCellDef class="email-header">
@@ -26,7 +25,9 @@
               <td mat-cell *matCellDef="let element" class="email-cell">
                 <div class="email-container">
                   <span class="email-text">{{ element.email }}</span>
-                  <div class="email-domain">{{ element.email.split('@')[1] }}</div>
+                  <div class="email-domain">
+                    {{ element.email.split("@")[1] }}
+                  </div>
                 </div>
               </td>
             </ng-container>
@@ -39,19 +40,22 @@
               </th>
               <td mat-cell *matCellDef="let element" class="actions-cell">
                 <div class="admin-actions">
-                  <button 
-                    mat-flat-button 
+                  <button
+                    mat-flat-button
                     class="grant-admin-button"
-                    [disabled]="element.isAdmin"
-                    (click)="grantAdmin(element.email)">
+                    [disabled]="!!element.isAdmin || pending[element.email]"
+                    (click)="grantAdmin(element.email, element)"
+                  >
                     <span class="button-icon">🔑</span>
                     Grant Admin
                   </button>
-                  <button 
-                    mat-flat-button 
+
+                  <button
+                    mat-flat-button
                     class="remove-admin-button"
-                    [disabled]="!element.isAdmin"
-                    (click)="removeAdmin(element.email)">
+                    [disabled]="!element.isAdmin || pending[element.email]"
+                    (click)="removeAdmin(element.email, element)"
+                  >
                     <span class="button-icon">🚫</span>
                     Remove Admin
                   </button>
@@ -59,11 +63,19 @@
               </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columnsToShow" class="header-row"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnsToShow" class="data-row"></tr>
+            <tr
+              mat-header-row
+              *matHeaderRowDef="columnsToShow"
+              class="header-row"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: columnsToShow"
+              class="data-row"
+            ></tr>
           </table>
         </div>
-        
+
         <div class="pagination-container">
           <mat-paginator
             showFirstLastButtons

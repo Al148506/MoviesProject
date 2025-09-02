@@ -31,10 +31,10 @@ export class LandingPageComponent {
         this.moviesComingSoon = [...modelo.comingSoon];
       },
       error: (err) => {
-        console.error('[LandingPageComponent] Loading movies error: ', err);
+        //console.error('[LandingPageComponent] Loading movies error: ', err);
       },
       complete: () => {
-        console.log('[LandingPageComponent] Loading movies complete.');
+        //console.log('[LandingPageComponent] Loading movies complete.');
       }
     });
   }
