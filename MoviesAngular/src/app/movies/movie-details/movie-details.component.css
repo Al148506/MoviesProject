@@ -1,13 +1,177 @@
-mat-chip-listbox {
-  display: inline-block;
-  margin-bottom: 0.5rem;
+:host {
+  display: block;
+  color: #eaeaea; /* textos claros */
+  --card-bg: rgba(22, 22, 34, 0.9);
+  --muted: rgba(234, 234, 234, 0.75);
+  --accent: #4ecdc4;
 }
 
-app-rating {
-  vertical-align: middle;
+/* contenedor principal */
+.details-page {
+  background: transparent; /* respetar fondo oscuro de la app */
+  padding: 1.5rem;
 }
 
-.space {
-  flex: 1 1 auto;
+/* header */
+.movie-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.movie-title {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+}
+.movie-year {
+  color: var(--muted);
+  font-weight: 600;
 }
 
+/* meta/chips */
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.mat-mdc-chip {
+  --mdc-chip-label-text-color: #111; /* mejora contraste del texto del chip */
+}
+.mdc-evolution-chip-set .mdc-evolution-chip {
+  background: linear-gradient(135deg, #ffd166, #ffb703) !important;
+}
+
+/* layout poster + trailer */
+.media-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+  display: grid;
+  grid-template-columns: 225px 1fr;
+  gap: 1rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.poster {
+  width: 225px;
+  height: 315px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.trailer-wrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0b0b0f;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* 16:9 responsive iframe */
+.trailer-aspect {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+}
+.trailer-aspect iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* rating (tu voto) */
+.rate-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+}
+
+/* actores */
+.actors-section {
+  margin-top: 1.25rem;
+}
+.section-title {
+  margin: 0 0 0.5rem 0;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.actor-list {
+  display: grid;
+  gap: 0.4rem;
+}
+.actor-item {
+  display: grid;
+  grid-template-columns: 50px 200px 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.5rem 0.6rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.actor-photo {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+.actor-name {
+  color: #fff;
+  font-weight: 600;
+}
+.actor-char {
+  color: var(--muted);
+}
+
+/* mapa/cines */
+.theaters-card {
+  margin-top: 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+.theaters-title {
+  margin: 0 0 0.75rem 0;
+  color: #fff;
+  font-weight: 800;
+}
+
+/* utilidades */
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  margin: 1rem 0;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .media-card {
+    grid-template-columns: 1fr;
+  }
+  .poster {
+    width: 100%;
+    height: auto;
+  }
+}

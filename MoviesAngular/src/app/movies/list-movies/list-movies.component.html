@@ -1,9 +1,9 @@
 <div class="movies-grid">
   <ng-container *ngIf="movies && movies.length > 0; else noMovies">
-    <div 
-      *ngFor="let movie of movies; let i = index" 
+    <div
+      *ngFor="let movie of movies; let i = index"
       class="movie-card"
-      [style.animation-delay]="(i * 0.1) + 's'"
+      [style.animation-delay]="i * 0.1 + 's'"
     >
       <div class="movie-poster-container">
         <a [routerLink]="['/movie', movie.id]">
@@ -13,15 +13,15 @@
             [alt]="movie.title"
             class="movie-poster"
           />
+
+          <ng-template #defaultImage>
+            <img
+              src="default.jpg"
+              [alt]="movie.title"
+              class="movie-poster default-poster"
+            />
+          </ng-template>
         </a>
-        <ng-template #defaultImage>
-          <img 
-            src="default.jpg" 
-            [alt]="movie.title"
-            class="movie-poster default-poster" 
-          />
-        </ng-template>
-        
         <div class="movie-overlay">
           <div class="movie-rating">★ 8.5</div>
         </div>
@@ -31,7 +31,7 @@
         <h3 class="movie-title">
           <a [routerLink]="['/movie', movie.id]">{{ movie.title }}</a>
         </h3>
-        
+
         <app-authorized rol="admin">
           <ng-container authorized>
             <div class="movie-actions">
