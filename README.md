@@ -1,5 +1,5 @@
 # 🎬 Movies Full-Stack Project
-
+> **Live URL**: [https://portfolioacg.ddnsfree.com](https://portfolioacg.ddnsfree.com)  
 A complete cinema management system built with **Angular** for the
 frontend and **ASP.NET Core Web API** for the backend.\
 It allows users to browse movies, watch trailers, and view details,
@@ -86,7 +86,7 @@ while administrators can manage all entities in the system.
 -   **Backend**: ASP.NET Core Web API (.NET 7) + SQL Server,
     orchestrated with **docker-compose**.\
 -   **Hosting**: Linux server with custom domain:
-    <https://portfolioacg.com>.\
+    <https://portfolioacg.ddnsfree.com>.\> 
 -   **CI/CD**: Continuous integration & deployment via **GitHub
     Actions**.
 
