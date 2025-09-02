@@ -1,59 +1,71 @@
 @if(movie){
-<div>
-<h2>{{ movie.title }} ({{ releaseDateShow.getFullYear() }})</h2>
-  <mat-chip-listbox>
-    @for (genre of movie.genres; track $index) {
-    <mat-chip
-      [routerLink]="['/movies/filter']"
-      [queryParams]="{ genreId: genre.id }"
-      >{{ genre.name }}</mat-chip
-    >
-    }
-  </mat-chip-listbox>
-  | {{ releaseDateShow.toISOString().split("T")[0] }} | Average: {{movie.averageVote.toFixed(1)}} 
-  | Your vote: <app-rating [maxRating]="5" (voted)="rating($event)" [currentRating]="movie.userVote"></app-rating>
-  <div style="display: flex">
-    <span style="display: inline-block; margin-right: 1rem">
-      <img [src]="movie.poster" style="width: 225px; height: 315px" />
-    </span>
-    @if(movie.trailer){
-    <div>
-     <iframe
-  width="565"
-  height="315"
-  [src]="trailerURL"
-  frameborder="0"
-  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
->
-</iframe>
+<div class="details-page">
+  <div class="movie-header">
+    <h2 class="movie-title">
+      {{ movie.title }}
+    </h2>
+    <span class="movie-year">({{ releaseDateShow.getFullYear() }})</span>
+  </div>
 
+  <div class="meta-row">
+    <mat-chip-listbox>
+      @for (genre of movie.genres; track $index) {
+      <mat-chip
+        [routerLink]="['/movies/filter']"
+        [queryParams]="{ genreId: genre.id }"
+      >
+        {{ genre.name }}
+      </mat-chip>
+      }
+    </mat-chip-listbox>
+
+    <span>| {{ releaseDateShow.toISOString().split("T")[0] }}</span>
+    <span>| Average: {{ movie.averageVote.toFixed(1) }}</span>
+    <span class="rate-row">
+      | Your vote:
+      <app-rating
+        [maxRating]="5"
+        (voted)="rating($event)"
+        [currentRating]="movie.userVote"
+      ></app-rating>
+    </span>
+  </div>
+
+  <div class="media-card">
+    <img class="poster" [src]="movie.poster" [alt]="movie.title" />
+
+    @if(movie.trailer){
+    <div class="trailer-wrap">
+      <div class="trailer-aspect">
+        <iframe
+          [src]="trailerURL"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          title="Trailer"
+        >
+        </iframe>
+      </div>
     </div>
     }
   </div>
+
   @if(movie.actors){
-  <div style="margin-top: 1rem">
-    <h3>Actors</h3>
-    <div style="display: flex; flex-direction: column">
+  <div class="actors-section">
+    <div class="divider"></div>
+    <h3 class="section-title">Actors</h3>
+    <div class="actor-list">
       @for (actor of movie.actors; track $index) {
-      <div style="margin-bottom: 2px">
-        <img
-          [src]="actor.photo"
-          alt="actor photo"
-          style="width: 50px; height: 50px; vertical-align: middle"
-        />
-        <span style="display: inline-block; width: 200px; margin-left: 1rem">
-          {{ actor.name }}
-        </span>
-        <span style="display: inline-block; width: 45px">...</span>
-        <span>{{ actor.character }}</span>
+      <div class="actor-item">
+        <img class="actor-photo" [src]="actor.photo" alt="actor photo" />
+        <span class="actor-name">{{ actor.name }}</span>
+        <span class="actor-char">{{ actor.character }}</span>
       </div>
       }
     </div>
   </div>
   } @if(coordinates.length > 0){
-  <div>
-    <h2>Showing in the following theaters</h2>
+  <div class="theaters-card">
+    <h2 class="theaters-title">Showing in the following theaters</h2>
     <app-map [InitialCoordinates]="coordinates" [readOnly]="true"></app-map>
   </div>
   }
