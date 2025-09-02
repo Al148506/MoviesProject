@@ -9,6 +9,6 @@ export interface AuthenticationResponseDTO {
 }
 
 export interface UserDTO {
-    email: string;
-    IsAdmin: boolean;
+  email: string;
+  isAdmin: boolean;
 }

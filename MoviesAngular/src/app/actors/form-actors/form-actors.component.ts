@@ -39,7 +39,7 @@ import moment from 'moment'; // ✅ importante usar '* as' para consistencia
 export class FormActorsComponent implements OnInit {
   ngOnInit(): void {
     if (this.model !== undefined) {
-      console.log('🟡 Modelo recibido en FormActorsComponent:', this.model);
+      //console.log('🟡 Modelo recibido en FormActorsComponent:', this.model);
 
       // Corrige la propiedad a usar
       const birthdateStr =
@@ -51,7 +51,7 @@ export class FormActorsComponent implements OnInit {
 
       this.form.patchValue(modelCopy);
 
-      console.log('🟢 Formulario después de patchValue:', this.form.value);
+      //console.log('🟢 Formulario después de patchValue:', this.form.value);
     }
   }
 
@@ -103,7 +103,7 @@ export class FormActorsComponent implements OnInit {
 
     const formValue = this.form.value;
 
-    console.log('📤 Datos del formulario al guardar:', formValue);
+    //console.log('📤 Datos del formulario al guardar:', formValue);
 
     const actor: ActorCreateDTO = {
       name: formValue.name ?? '',
@@ -116,7 +116,7 @@ export class FormActorsComponent implements OnInit {
           : formValue.photo ?? undefined,
     };
 
-    console.log('📦 Actor emitido:', actor);
+    //console.log('📦 Actor emitido:', actor);
 
     this.postForm.emit(actor);
   }

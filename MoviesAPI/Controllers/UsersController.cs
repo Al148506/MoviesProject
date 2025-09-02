@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -37,18 +37,31 @@ namespace MoviesAPI.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("ListUsers")]
-        public async Task<ActionResult<List<UserDTO>>> ListUsers([FromQuery] PaginationDTO paginationDTO)
-        {
-            var queryable = context.Users.AsQueryable();
-            await HttpContext.InsertParamsPaginationHeader(queryable);
-            var users = await queryable.ProjectTo<UserDTO>(mapper.ConfigurationProvider)
-                .OrderBy(x => x.Email).Paginate(paginationDTO).ToListAsync();
+    [HttpGet("ListUsers")]
+    public async Task<ActionResult<List<UserDTO>>> ListUsers([FromQuery] PaginationDTO paginationDTO)
+    {
+      var queryable = context.Users.AsQueryable();
+      await HttpContext.InsertParamsPaginationHeader(queryable);
 
-            return users;
-        }
+      var users = await context.Users
+          .Select(u => new UserDTO
+          {
+            Email = u.Email!,
+            // Es admin si existe una claim isadmin=true para ese usuario
+            IsAdmin = context.UserClaims
+                  .Any(c => c.UserId == u.Id &&
+                            c.ClaimType == "isadmin" &&
+                            c.ClaimValue == "true")
+          })
+          .OrderBy(x => x.Email)
+          .Paginate(paginationDTO)
+          .ToListAsync();
 
-        [HttpPost("register")]
+      return users;
+    }
+
+
+    [HttpPost("register")]
         [AllowAnonymous]
         public async Task<ActionResult<AuthenticationResponseDTO>> Register(UserCredentialsDTO userCredentialsDTO)
         {

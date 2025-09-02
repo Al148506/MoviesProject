@@ -48,8 +48,8 @@ export class EditMovieComponent implements OnInit {
       this.genresSelected = model.genresSelected.map((genre) => {
         return <SelectorMultipleDTO>{ key: genre.id, value: genre.name };
       });
-      console.log('Fecha original:', model.movie.releaseDate);
-      console.log('Tipo:', typeof model.movie.releaseDate);
+      //console.log('Fecha original:', model.movie.releaseDate);
+      //console.log('Tipo:', typeof model.movie.releaseDate);
     });
   }
   private transformDate(date: string): string {

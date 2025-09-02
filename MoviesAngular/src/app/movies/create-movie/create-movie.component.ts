@@ -40,7 +40,7 @@ export class CreateMovieComponent {
   saveChanges(movie: MovieCreationDTO) {
     this.moviesService.create(movie).subscribe({
       next: movie => {
-        console.log(movie);
+        //console.log(movie);
         this.router.navigate(['/']);
       },
       error: (err) => {

@@ -33,11 +33,21 @@ export class SecurityService {
   }
 
   grantAdmin(email: string) {
-    return this.http.post(`${this.urlBase}/GrantAdmin`, { email });
+    //console.log('[svc/grantAdmin] POST', email);
+    return this.http.post(
+      `${this.urlBase}/GrantAdmin`,
+      { email },
+      { observe: 'response' }
+    );
   }
 
   removeAdmin(email: string) {
-    return this.http.post(`${this.urlBase}/RemoveAdmin`, { email });
+    //console.log('[svc/removeAdmin] POST', email);
+    return this.http.post(
+      `${this.urlBase}/RemoveAdmin`,
+      { email },
+      { observe: 'response' }
+    );
   }
 
   obtainToken(): string | null {
