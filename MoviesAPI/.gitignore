@@ -366,7 +366,7 @@ FodyWeavers.xsd
 wwwroot/actors/*
 wwwroot/movies/*
 
-# Pero no ignorar las carpetas en sí
+# Pero no ignorar las carpetas en sï¿½
 !wwwroot/actors/.gitkeep
 !wwwroot/movies/.gitkeep
 
@@ -374,5 +374,6 @@ appsettings.json
 appsettings.Development.json
 appsettings.*.json
 .env
+
 
 /Controllers/GenreNoSqlController.cs
