@@ -12,7 +12,7 @@ services:
         Password=${SA_PASSWORD};
         TrustServerCertificate=True;
         MultipleActiveResultSets=True
-        ConnectionStrings__AZURE_STORAGE_CONNECTION: ${AZURE_STORAGE_CONNECTION_STRING}
+      ConnectionStrings__AzureStorage: ${AZURE_STORAGE_CONNECTION_STRING}
       ALLOWED_ORIGINS: "${ALLOWED_ORIGINS}"
       JWT_KEY: "${JWT_KEY}"
     depends_on:
