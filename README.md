@@ -1,5 +1,5 @@
 # 🎬 Movies Full-Stack Project
-> **Live URL**: [https://portfolioacg.ddnsfree.com](https://portfolioacg.ddnsfree.com)  
+> **Live URL**: [https://moviesangularacg.web.app](https://moviesangularacg.web.app)  
 A complete cinema management system built with **Angular** for the
 frontend and **ASP.NET Core Web API** for the backend.\
 It allows users to browse movies, watch trailers, and view details,
